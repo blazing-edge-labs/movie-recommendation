@@ -1,0 +1,12 @@
+*.sublime-*
+.DS_Store
+.env
+.idea
+asset.json
+cert
+db
+dist
+node_modules
+npm-debug.log
+tags
+upload
