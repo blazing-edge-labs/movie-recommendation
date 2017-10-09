@@ -46,6 +46,7 @@ app.use(require('body-parser').urlencoded({
   limit: '500kb',
 }))
 
+app.use(require('middleware/auth'))
 app.use(require('route/index'))
 
 if (process.env.NODE_ENV === 'production') {

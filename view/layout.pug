@@ -7,6 +7,15 @@ html
     link(rel="stylesheet" href=`/${asset('main.css')}`)
 
   body
+    block header
+      header
+        if username
+          span= username
+          |&nbsp;
+          a(href="/logout") logout
+        else
+          a(href="/login") login
+
     block body
 
     script(src=`/${asset('main.js')}`)
