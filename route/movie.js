@@ -3,9 +3,9 @@ const router = require('express-promise-router')()
 
 const db = require('db')
 
-router.get('/movie', function (req, res) {
-  const {username} = req.session
-  return res.render('index', {username})
+router.get('/movie', async function (req, res) {
+  const movies = await db.movie.getVals()
+  return res.render('movies', {movies})
 })
 
 module.exports = router

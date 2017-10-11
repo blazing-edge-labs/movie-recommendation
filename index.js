@@ -17,6 +17,7 @@ function asset (name) {
 
 app.locals._ = _
 app.locals.asset = asset
+app.locals.TMDB_IMG_BASE = 'https://image.tmdb.org/t/p'
 
 app.set('trust proxy', true)
 app.set('view engine', 'pug')
@@ -48,6 +49,7 @@ app.use(require('body-parser').urlencoded({
 
 app.use(require('middleware/auth'))
 app.use(require('route/index'))
+app.use(require('route/movie'))
 
 if (process.env.NODE_ENV === 'production') {
   app.use(function (err, req, res, next) {
