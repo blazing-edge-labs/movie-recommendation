@@ -1,9 +1,10 @@
 extends layout
 
 block body
-  h1 movies
+  h1 Movies
 
   each movie in movies
-    h4= movie.title
-    p= movie.vote_average
-    img(src=`${TMDB_IMG_BASE}/w640/${movie.poster_path}`)
+    article.movie-holder
+      img(src=`${TMDB_IMG_BASE}/w640/${movie.poster_path}`)
+      h4= movie.title
+      p= movie.overview

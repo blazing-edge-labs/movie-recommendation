@@ -10,7 +10,13 @@ function getMovies () {
 async function sync () {
   const movies = await getMovies()
   await Promise.map(movies, function (movie) {
-    return db.movie.put(movie.id, movie)
+    return db.movie.put(movie.id, _.pick(movie, [
+      'genre_ids',
+      'id',
+      'overview',
+      'poster_path',
+      'title',
+    ]))
   })
   process.exit(0)
 }
