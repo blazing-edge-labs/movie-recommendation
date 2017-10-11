@@ -11,11 +11,11 @@ async function getVals () {
   return getStream.array(this.createValueStream())
 }
 
-function getKeys (cb) {
+function getKeys () {
   return getStream.array(this.createKeyStream())
 }
 
-function getBy (predicate, cb) {
+function getBy (predicate) {
   return this.getVals().then(_fp.filter(predicate))
 }
 
