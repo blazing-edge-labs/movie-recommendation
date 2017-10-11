@@ -92,6 +92,7 @@
     "dev": "run-p -s dev:script dev:style dev:server",
     "dev:script": "watchify -d -t babelify -e client/script/index.js -o dist/main.js",
     "dev:style": "postcss client/style/index.sss -o dist/main.css -m -w",
-    "dev:server": "nodemon -q -I -e js,json -i package.json -i client -i dist -- -r babel-register index.js"
+    "dev:server": "nodemon -q -I -e js,json -i package.json -i client -i dist -- -r babel-register index.js",
+    "sync": "node -r babel-register -r ./env sync.js"
   }
 }
