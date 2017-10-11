@@ -1,4 +1,5 @@
 const _ = require('lodash')
+const _fp = require('lodash/fp')
 const getStream = require('get-stream')
 const level = require('level')
 const levelPromise = require('level-promise')
@@ -11,20 +12,11 @@ async function getVals () {
 }
 
 function getKeys (cb) {
-  const keys = []
-  this.createKeyStream()
-  .on('error', cb)
-  .on('data', (key) => keys.push(key))
-  .on('end', () => cb(null, keys))
+  return getStream.array(this.createKeyStream())
 }
 
 function getBy (predicate, cb) {
-  this.getVals(function (err, vals) {
-    if (err) {
-      return cb(err)
-    }
-    return cb(null, _.filter(vals, predicate))
-  })
+  return this.getVals().then(_fp.filter(predicate))
 }
 
 function sub (name) {

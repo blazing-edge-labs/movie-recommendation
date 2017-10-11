@@ -4,7 +4,7 @@ const db = require('db')
 const tmdb = require('tmdb')
 
 function getMovies () {
-  return tmdb.getPaginated('/movie/popular')
+  return tmdb.getPaginated('/movie/popular', 20)
 }
 
 async function sync () {
