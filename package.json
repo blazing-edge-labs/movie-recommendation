@@ -23,6 +23,7 @@
     "get-stream": "^3.0.0",
     "got": "^7.1.0",
     "hashmark": "^5.0.0",
+    "joi": "^11.3.4",
     "jquery": "^3.2.1",
     "level": "^1.7.0",
     "level-promise": "^2.1.1",

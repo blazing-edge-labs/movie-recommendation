@@ -8,3 +8,13 @@ block body
       img(src=`${TMDB_IMG_BASE}/w640/${movie.poster_path}`)
       h4= movie.title
       p= movie.overview
+      if username
+        .rating
+          span(data-id= movie.id data-rating= 5) ☆
+          span(data-id= movie.id data-rating= 4) ☆
+          span(data-id= movie.id data-rating= 3) ☆
+          span(data-id= movie.id data-rating= 2) ☆
+          span(data-id= movie.id data-rating= 1) ☆
+
+
+
