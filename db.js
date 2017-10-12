@@ -30,11 +30,13 @@ function sub (name) {
 const movie = levelPromise(sub('movie'))
 const review = levelPromise(sub('review'))
 const session = sub('session')
+const similarity = levelPromise(sub('similarity'))
 const user = levelPromise(sub('user'))
 
 module.exports = {
   movie,
   review,
   session,
+  similarity,
   user,
 }
