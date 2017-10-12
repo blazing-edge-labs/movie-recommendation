@@ -7,7 +7,7 @@ const sublevel = require('subleveldown')
 
 const db = level(process.env.DB, {valueEncoding: 'json'})
 
-async function getVals () {
+function getVals () {
   return getStream.array(this.createValueStream())
 }
 
