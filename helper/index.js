@@ -51,19 +51,17 @@ async function updateUserSimilarityScores (username) {
   return Promise.map(users, async function (user) {
     user.reviews = await getUserMutualMovieReviews(user, mainUserMovies)
 
-    if (user.username === mainUser.username || !_.size(user.reviews)) {
+    if (user.username === mainUser.username) {
       return
     }
 
     let clonedUsers = filterUserMutualMovies(mainUser, user)
 
-    let similarityObject = {
+    await db.similarity.put([user.username, mainUser.username].sort().join('-'), {
       euclideanDistance: algorithms.euclideanDistance(clonedUsers[0], clonedUsers[1]),
       pcc: algorithms.pcc(clonedUsers[0], clonedUsers[1]),
       users: [user.username, mainUser.username].sort(),
-    }
-
-    console.log('Clog', similarityObject)
+    })
   })
 }
 
