@@ -65,6 +65,11 @@ async function updateUserSimilarityScores (username) {
   })
 }
 
+function sortByAlgorithm (dataArray, algorithm) {
+  return _.orderBy(dataArray, algorithm, 'desc')
+}
+
 module.exports = {
+  sortByAlgorithm,
   updateUserSimilarityScores,
 }
