@@ -16,7 +16,7 @@ function getUserMutualMovieReviews (user, mainUserMovies) {
   })
 }
 
-function filterUserMutualMovies (user1, user2) {
+function filterUserMutualMovies (user1, user2, mutateObjects = false) {
   let mutualMovies = _.intersection(
     _.map(user1.reviews, 'movieId'),
     _.map(user2.reviews, 'movieId')
@@ -26,19 +26,26 @@ function filterUserMutualMovies (user1, user2) {
     return _.includes(mutualMovies, review.movieId)
   }
 
-  let clonedUser1 = _.cloneDeep(user1)
-  let clonedUser2 = _.cloneDeep(user2)
+  let tempUser1, tempUser2
 
-  clonedUser1.reviews = _(clonedUser1.reviews)
+  if (mutateObjects) {
+    tempUser1 = user1
+    tempUser2 = user2
+  } else {
+    tempUser1 = _.cloneDeep(user1)
+    tempUser2 = _.cloneDeep(user2)
+  }
+
+  tempUser1.reviews = _(tempUser1.reviews)
   .filter(filterHelper)
   .orderBy('movieId')
   .value()
-  clonedUser2.reviews = _(clonedUser2.reviews)
+  tempUser2.reviews = _(tempUser2.reviews)
   .filter(filterHelper)
   .orderBy('movieId')
   .value()
 
-  return [clonedUser1, clonedUser2]
+  return [tempUser1, tempUser2]
 }
 
 async function updateUserSimilarityScores (username) {
@@ -69,7 +76,15 @@ function sortByAlgorithm (dataArray, algorithm) {
   return _.orderBy(dataArray, algorithm, 'desc')
 }
 
+function filterUserReviews (username) {
+  return function (review) {
+    return review.username === username
+  }
+}
+
 module.exports = {
+  filterUserReviews,
+  filterUserMutualMovies,
   sortByAlgorithm,
   updateUserSimilarityScores,
 }

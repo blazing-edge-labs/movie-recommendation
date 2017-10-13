@@ -10,7 +10,7 @@ const defaults = {
 const path = {
   body: 'body',
   header: 'headers',
-  param: 'params',
+  params: 'params',
   query: 'query',
 }
 

@@ -9,12 +9,18 @@ html
   body
     block header
       header
+        a(href="/") Home
+        |&nbsp;
+        a(href="/movie") Movies
+        |&nbsp;
         if username
+          a(href="/user") Users
+          |&nbsp;
           span= username
           |&nbsp;
-          a(href="/logout") logout
+          a(href="/logout") Logout
         else
-          a(href="/login") login
+          a(href="/login") Login
 
     block body
 

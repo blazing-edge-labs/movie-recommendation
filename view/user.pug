@@ -1,0 +1,24 @@
+extends layout
+
+block body
+  h1= user.username
+  table.review-table
+    thead
+      tr
+        th Movies/Users
+        th= user.username
+        th= loggedUser.username
+    tbody
+      each review, index in user.reviews
+        tr
+          td= movies[review.movieId]
+          td= review.rating
+          td= loggedUser.reviews[index].rating
+      tr
+        td(colspan= 2) Euclidean distance:
+        td= similarity.euclideanDistance.toFixed(2)
+      tr
+        td(colspan= 2)= 'PCC:'
+        td= similarity.pcc.toFixed(2)
+
+
