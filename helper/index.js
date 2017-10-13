@@ -4,6 +4,14 @@ const db = require('db')
 
 const algorithms = require('helper/algorithms')
 
+function extractUsernamesFromSimilarityData (similarityData, username) {
+  return _(similarityData).map(function (userSimilarityData) {
+    return _.remove(userSimilarityData.users, function (user) {
+      return user !== username
+    })
+  }).flatten().value()
+}
+
 function getUserMovieReviews (user) {
   return db.review.getBy(function (review) {
     return review.username === user.username
@@ -62,9 +70,9 @@ async function updateUserSimilarityScores (username) {
       return
     }
 
-    let clonedUsers = filterUserMutualMovies(mainUser, user)
+    const clonedUsers = filterUserMutualMovies(mainUser, user)
 
-    await db.similarity.put([user.username, mainUser.username].sort().join('-'), {
+    return db.similarity.put([user.username, mainUser.username].sort().join('-'), {
       euclideanDistance: algorithms.euclideanDistance(clonedUsers[0], clonedUsers[1]),
       pcc: algorithms.pcc(clonedUsers[0], clonedUsers[1]),
       users: [user.username, mainUser.username].sort(),
@@ -83,8 +91,10 @@ function filterUserReviews (username) {
 }
 
 module.exports = {
+  extractUsernamesFromSimilarityData,
   filterUserReviews,
   filterUserMutualMovies,
+  getUserMovieReviews,
   sortByAlgorithm,
   updateUserSimilarityScores,
 }

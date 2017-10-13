@@ -8,17 +8,11 @@ const validate = require('middleware/validate')
 
 router.get('/user', async function (req, res) {
   const {username} = req
-  let similarityData = helper.sortByAlgorithm(await db.similarity.getBy(function (user) {
+  const similarityData = helper.sortByAlgorithm(await db.similarity.getBy(function (user) {
     return _.includes(user.users, username)
   }), 'pcc')
-
-  let usernames = _(similarityData).map(function (userSimilarityData) {
-    return _.remove(userSimilarityData.users, function (user) {
-      return user !== username
-    })
-  }).flatten().value()
-
-  let users = await Promise.map(usernames, function (user) {
+  const usernames = helper.extractUsernamesFromSimilarityData(similarityData, username)
+  const users = await Promise.map(usernames, function (user) {
     return db.user.get(user)
   })
 
