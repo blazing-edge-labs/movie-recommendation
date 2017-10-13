@@ -89,6 +89,7 @@
     "build": "run-p -s build:script build:style",
     "build:script": "browserify -t babelify -e client/script/index.js | uglifyjs -c -m | hashmark -s -n dist/main.js -l 8 -m asset.json dist/{hash}{ext}",
     "build:style": "postcss client/style/index.sss | cleancss -O1 specialComments:0 --inline all | hashmark -s -n dist/main.css -l 8 -m asset.json dist/{hash}{ext}",
+    "db:seed": "node -r babel-register -r ./env seed.js",
     "predev": "run-s -s clean mkdirs",
     "dev": "run-p -s dev:script dev:style dev:server",
     "dev:script": "watchify -d -t babelify -e client/script/index.js -o dist/main.js",
