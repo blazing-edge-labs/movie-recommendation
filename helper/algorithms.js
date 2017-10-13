@@ -19,7 +19,22 @@ function squaredNum (review) {
   return Math.pow(review.rating, 2)
 }
 
-// pearson correlation coefficient
+function manhattanDistance (user1, user2) {
+  const n = _.size(user1.reviews)
+  let coefficient = 0
+
+  if (n === 0) {
+    return n
+  }
+
+  for (let i = 0; i < n; i++) {
+    coefficient += Math.abs(user1.reviews[i].rating - user2.reviews[i].rating)
+  }
+
+  return 1 / (1 + coefficient)
+}
+
+// Pearson correlation coefficient
 function pcc (user1, user2) {
   const n = _.size(user1.reviews)
 
@@ -52,5 +67,6 @@ function pcc (user1, user2) {
 
 module.exports = {
   euclideanDistance,
+  manhattanDistance,
   pcc,
 }

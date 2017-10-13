@@ -31,7 +31,6 @@ router.get('/user/:id', validate('params', {
     return next()
   }
 
-
   loggedUser.reviews = await db.review.getBy(helper.filterUserReviews(loggedUser.username))
   user.reviews = await db.review.getBy(helper.filterUserReviews(user.username))
 

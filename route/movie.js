@@ -26,7 +26,7 @@ router.get('/movie', async function (req, res) {
   await Promise.map(users, async function (user) {
     user.reviews = _(await db.review.getBy(function (review) {
       return review.username === user.username && !_.includes(mainUser.reviewedMovies, review.movieId)
-    })).orderBy('rating', 'desc').take(25).value()
+    })).orderBy('rating', 'desc').take(5).value()
   })
 
   let movieRecommendations = []

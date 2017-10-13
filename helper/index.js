@@ -74,6 +74,7 @@ async function updateUserSimilarityScores (username) {
 
     return db.similarity.put([user.username, mainUser.username].sort().join('-'), {
       euclideanDistance: algorithms.euclideanDistance(clonedUsers[0], clonedUsers[1]),
+      manhattanDistance: algorithms.manhattanDistance(clonedUsers[0], clonedUsers[1]),
       pcc: algorithms.pcc(clonedUsers[0], clonedUsers[1]),
       users: [user.username, mainUser.username].sort(),
     })
