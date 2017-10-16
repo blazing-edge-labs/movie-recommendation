@@ -56,6 +56,14 @@ router.get('/movie', async function (req, res) {
   return res.render('movies', {movies})
 })
 
+router.get('/movie/:id', validate('params', {
+  id: joi.number().integer().positive().required(),
+}), async function (req, res) {
+  const movie = await db.movie.get(req.v.params.id)
+
+  res.render('movie', {movie})
+})
+
 router.post('/movie/rate', validate('body', {
   movieId: joi.number().integer().positive().required(),
   rating: joi.number().integer().positive().required(),

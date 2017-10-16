@@ -1,0 +1,10 @@
+extends layout
+
+block body
+  article
+    img(src=`${TMDB_IMG_BASE}/w640/${movie.poster_path}`)
+    h4= movie.title
+    p= movie.overview
+
+
+

@@ -5,9 +5,14 @@ const db = require('db')
 const helper = require('helper/index')
 const passwordHelper = require('helper/password')
 
-router.get('/', function (req, res) {
+router.get('/', async function (req, res) {
   const {username} = req.session
-  return res.render('index', {username})
+
+  return res.render('index', {
+    username,
+    totalUsers: _.size(await db.user.getVals()),
+    totalReviews: _.size(await db.review.getVals()),
+  })
 })
 
 router.get('/me', async function (req, res) {

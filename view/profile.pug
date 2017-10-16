@@ -16,6 +16,5 @@ block body
                 a(href=`/movie/${review.movieId}`)
                   img(class='media-left-image' src=`${TMDB_IMG_BASE}/w640/${review.movie.poster_path}` alt='')
               .media-body
-                h4.media-heading
-                 a(href=`/movie/${review.movieId}`)= review.movie.title
+                h4.media-heading: a(href=`/movie/${review.movieId}`)= review.movie.title
                 p= `Rating: ${review.rating}`
