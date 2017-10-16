@@ -2,11 +2,24 @@ const _ = require('lodash')
 const router = require('express-promise-router')()
 
 const db = require('db')
+const helper = require('helper/index')
 const passwordHelper = require('helper/password')
 
 router.get('/', function (req, res) {
   const {username} = req.session
   return res.render('index', {username})
+})
+
+router.get('/me', async function (req, res) {
+  const user = await db.user.get(req.session.username)
+  user.reviews = await Promise.map(await helper.getUserMovieReviews(user), async function (review) {
+    return {
+      ...review,
+      movie: await db.movie.get(review.movieId),
+    }
+  })
+
+  return res.render('profile', {user})
 })
 
 router.get('/login', function (req, res) {

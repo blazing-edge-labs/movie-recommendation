@@ -13,6 +13,7 @@
     "bcrypt": "^1.0.3",
     "bluebird": "^3.5.0",
     "body-parser": "^1.18.1",
+    "bootstrap": "^3.3.7",
     "browserify": "^14.4.0",
     "clean-css-cli": "^4.1.9",
     "dotenv-safe": "^4.0.4",
