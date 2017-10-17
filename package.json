@@ -31,6 +31,7 @@
     "level-promise": "^2.1.1",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
+    "ncp": "^2.0.0",
     "normalize.css": "^7.0.0",
     "npm-run-all": "^4.1.1",
     "postcss": "^6.0.11",
@@ -81,24 +82,26 @@
     "compileDebug": false
   },
   "scripts": {
-    "copy:glyph": "ncp node_modules/bootstrap/fonts/ dist/font/",
     "lint:check": "eslint .",
     "lint:fix": "eslint --fix .",
     "stylelint:check": "stylelint **/*.css **/*.sss",
     "stylelint:fix": "stylelint --fix **/*.css **/*.sss",
     "clean": "rimraf dist/ asset.json",
-    "mkdirs": "mkdirp dist/",
+    "mkdirs": "mkdirp dist/ dist/font/",
     "prebuild": "run-p -s mkdirs",
-    "build": "run-p -s build:script build:style",
+    "build": "run-p -s build:script build:style copy",
     "build:script": "browserify -t babelify -e client/script/index.js | uglifyjs -c -m | hashmark -s -n dist/main.js -l 8 -m asset.json dist/{hash}{ext}",
     "build:style": "postcss client/style/index.sss | cleancss -O1 specialComments:0 --inline all | hashmark -s -n dist/main.css -l 8 -m asset.json dist/{hash}{ext}",
-    "db:seed": "node -r babel-register -r ./env seed.js",
+    "copy": "run-p -s copy:glyph",
+    "copy:glyph": "ncp node_modules/bootstrap/dist/fonts/ dist/font/",
     "predev": "run-s -s clean mkdirs",
-    "dev": "run-p -s dev:script dev:style dev:server",
-    "dev:copy:glyph": "watch 'run-p -s copy:glyph' node_modules/bootstrap/fonts/ --wait=1 &> /dev/null",
+    "dev": "run-p -s dev:script dev:style dev:server dev:copy",
+    "dev:copy": "run-p -s dev:copy:glyph",
+    "dev:copy:glyph": "watch 'run-p -s copy:glyph' node_modules/bootstrap/dist/fonts/ --wait=1 &> /dev/null",
     "dev:script": "watchify -d -t babelify -e client/script/index.js -o dist/main.js",
     "dev:style": "postcss client/style/index.sss -o dist/main.css -m -w",
     "dev:server": "nodemon -q -I -e js,json -i package.json -i client -i dist -- -r babel-register index.js",
-    "sync": "node -r babel-register -r ./env sync.js"
+    "sync": "node -r babel-register -r ./env sync.js",
+    "seed": "node -r babel-register -r ./env seed.js"
   }
 }
