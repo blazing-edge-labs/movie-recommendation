@@ -8,30 +8,28 @@ html
 
   body
     block header
-      nav.navbar.navbar-default
-        .container-fluid
-          .navbar-header
-            button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-collapse-navbar" aria-expanded="false")
-              .sr-only Toggle navigation
-              span.icon-bar
-              span.icon-bar
-              span.icon-bar
-            a(class="navbar-brand" href="/") Movie recommendation
-          div(class="collapse navbar-collapse" id="main-collapse-navbar")
-            div(class="nav navbar-nav" id="main-collapse-navbar")
-              .collapse.navbar-collapse
-                ul.nav.navbar-nav
-                  li: a(href="/") Home
-                  if username
-                    li: a(href="/me") Profile
-                    li: a(href="/movie") Movies
-                    li: a(href="/user") Users
-                  else
-                    li: a(href="/login") Login
+        nav.navbar.navbar-default
+          .conatiner-fluid
+            .navbar-header
+              button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-collapse-navbar" aria-expanded="false")
+                .sr-only Toggle navigation
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+              a(class="navbar-brand" href="/") Movie recommendation
+            div(class="collapse navbar-collapse" id="main-collapse-navbar")
+              ul.nav.navbar-nav
+                li: a(href="/") Home
                 if username
-                  ul.nav.navbar-nav.navbar-right
-                    li: a(href="/me")= `Hello ${username}`
-                    li: a(href="/logout") Logout
+                  li: a(href="/me") Profile
+                  li: a(href="/movie") Movies
+                  li: a(href="/user") Users
+                else
+                  li: a(href="/login") Login
+              if username
+                ul.nav.navbar-nav.navbar-right
+                  li: a(href="/me")= `Hello ${username}`
+                  li: a(href="/logout") Logout
     block body
 
     script(src=`/${asset('main.js')}`)
