@@ -5,5 +5,9 @@ block body
     .row
       .col-sm-6
         h1 Movie recommendation demo
-        p= `Total number of users registered: ${totalUsers}`
-        p= `Total number of reviews: ${totalReviews}`
+        p Total number of users registered:&nbsp;
+          b= totalUsers
+        p Total number of reviews:&nbsp;
+          b= totalReviews
+        if totalReviews > 9000
+          p: b= `It's over 9000!`

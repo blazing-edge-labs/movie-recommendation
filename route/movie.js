@@ -2,11 +2,12 @@ const _ = require('lodash')
 const joi = require('joi')
 const router = require('express-promise-router')()
 
+const auth = require('middleware/auth')
 const db = require('db')
 const helper = require('helper/index')
 const validate = require('middleware/validate')
 
-router.get('/movie', async function (req, res) {
+router.get('/movie', auth, async function (req, res) {
   const {username} = req
   const similarityData = _(await db.similarity.getBy(function (similarity) {
     return _.includes(similarity.users, username)
@@ -66,7 +67,7 @@ async function getPreviousAndNextMovie (movieId) {
   return {prevMovie, nextMovie}
 }
 
-router.get('/movie/:id', validate('params', {
+router.get('/movie/:id', auth, validate('params', {
   id: joi.number().integer().positive().required(),
 }), async function (req, res) {
   const movie = await db.movie.get(req.v.params.id)
@@ -85,7 +86,7 @@ router.get('/movie/:id', validate('params', {
   })
 })
 
-router.post('/movie/:id', validate('params', {
+router.post('/movie/:id', auth, validate('params', {
   id: joi.number().integer().positive().required(),
 }), validate('body', {
   rating: joi.number().integer().positive().required(),

@@ -2,11 +2,12 @@ const _ = require('lodash')
 const joi = require('joi')
 const router = require('express-promise-router')()
 
+const auth = require('middleware/auth')
 const db = require('db')
 const helper = require('helper/index')
 const validate = require('middleware/validate')
 
-router.get('/user', async function (req, res) {
+router.get('/user', auth, async function (req, res) {
   const {username} = req
   const similarity = helper.sortByAlgorithm(await db.similarity.getBy(function (user) {
     return _.includes(user.users, username)
@@ -24,7 +25,7 @@ router.get('/user', async function (req, res) {
   res.render('users', {usersSimilarities})
 })
 
-router.get('/user/:id', validate('params', {
+router.get('/user/:id', auth, validate('params', {
   id: joi.string().trim().required(),
 }), async function (req, res, next) {
   let loggedUser = await db.user.get(req.username)

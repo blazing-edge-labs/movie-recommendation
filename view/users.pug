@@ -4,7 +4,9 @@ block body
   .container
     .row
       h1 Users
-
+      p Users who have rated the same movies as you will be listed below, along with the correlation coefficient.
+      p Total number of similarities:&nbsp;
+        b= usersSimilarities.length
     ul.list-group
       each similarity in usersSimilarities
         li.list-group-item
