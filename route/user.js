@@ -12,7 +12,7 @@ router.get('/user', async function (req, res) {
     return _.includes(user.users, username)
   }), 'pcc')
 
-  const users = await Promise.map(similarity, async function (similarityData) {
+  const usersSimilarities = await Promise.map(similarity, async function (similarityData) {
     return {
       ...similarityData,
       user: await db.user.get(_.remove(similarityData.users, function (user) {
@@ -21,7 +21,7 @@ router.get('/user', async function (req, res) {
     }
   })
 
-  res.render('users', {users})
+  res.render('users', {usersSimilarities})
 })
 
 router.get('/user/:id', validate('params', {

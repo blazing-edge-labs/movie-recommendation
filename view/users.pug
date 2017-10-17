@@ -5,30 +5,20 @@ block body
     .row
       h1 Users
 
-    each user in users
-      .row
-        article.col-md-6
-          .row
-            a(href= `/user/${user.username}`)
-              h4.col-md-6= user.user.username
-            .col-md-6
-              table.table.table-striped
-                thead
-                  tr: th
-                    th Similarity
-                tbody
-                  tr
-                    td: b Euclidean distance
-                    td= user.euclideanDistance
-                  tr
-                    td: b Manhattan distance
-                    td= user.manhattanDistance
-                  tr
-                    td: b PCC
-                    td= user.pcc
-
-
-
-
-
-
+    ul.list-group
+      each similarity in usersSimilarities
+        li.list-group-item
+          table.table.table-striped
+            thead
+              tr: th: a(href= `/user/${similarity.user.username}`)= similarity.user.username
+                th Similarity
+            tbody
+              tr
+                td: b Euclidean distance
+                td= similarity.euclideanDistance.toFixed(2)
+              tr
+                td: b Manhattan distance
+                td= similarity.manhattanDistance.toFixed(2)
+              tr
+                td: b PCC
+                td= similarity.pcc.toFixed(2)

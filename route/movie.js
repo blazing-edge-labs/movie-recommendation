@@ -56,6 +56,16 @@ router.get('/movie', async function (req, res) {
   return res.render('movies', {movies})
 })
 
+async function getPreviousAndNextMovie (movieId) {
+  const movies = _(await db.movie.getVals()).orderBy('id').map('id').value()
+  const lastMovieArrayElement = _.size(movies) - 1
+  const movieArrayIndex = _.indexOf(movies, movieId)
+  const prevMovie = movies[movieArrayIndex === 0 ? lastMovieArrayElement : movieArrayIndex - 1]
+  const nextMovie = movies[movieArrayIndex === lastMovieArrayElement ? 0 : movieArrayIndex + 1]
+
+  return {prevMovie, nextMovie}
+}
+
 router.get('/movie/:id', validate('params', {
   id: joi.number().integer().positive().required(),
 }), async function (req, res) {
@@ -68,7 +78,11 @@ router.get('/movie/:id', validate('params', {
     userRating = 0
   }
 
-  res.render('movie', {movie, userRating})
+  res.render('movie', {
+    movie,
+    userRating,
+    ...(await getPreviousAndNextMovie(req.v.params.id)),
+  })
 })
 
 router.post('/movie/:id', validate('params', {
@@ -93,6 +107,7 @@ router.post('/movie/:id', validate('params', {
       error: 'Rating is required',
       userRating,
       movie: await db.movie.get(movieId),
+      ...(await getPreviousAndNextMovie(req.v.params.id)),
     })
   }
 
