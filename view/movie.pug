@@ -1,10 +1,21 @@
 extends layout
 
 block body
-  article
-    img(src=`${TMDB_IMG_BASE}/w640/${movie.poster_path}`)
-    h4= movie.title
-    p= movie.overview
+  .container
+    .row
+      article.col-md-6
+        img(src=`${TMDB_IMG_BASE}/w640/${movie.poster_path}`).movie-image
+        h4= movie.title
+        p= movie.overview
+
+        if username
+          form(method="POST" action=`/movie/${movie.id}`)
+            .form-group
+              input(name="rating" value= userRating)#movie-rating
+            .form-group
+              if error
+                .error= error
+              button(type="submit" class="btn btn-primary") Rate
 
 
 

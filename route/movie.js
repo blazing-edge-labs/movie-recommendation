@@ -60,16 +60,41 @@ router.get('/movie/:id', validate('params', {
   id: joi.number().integer().positive().required(),
 }), async function (req, res) {
   const movie = await db.movie.get(req.v.params.id)
+  let userRating
 
-  res.render('movie', {movie})
+  try {
+    userRating = (await db.review.get(`${req.username}-${movie.id}`)).rating
+  } catch (e) {
+    userRating = 0
+  }
+
+  res.render('movie', {movie, userRating})
 })
 
-router.post('/movie/rate', validate('body', {
-  movieId: joi.number().integer().positive().required(),
+router.post('/movie/:id', validate('params', {
+  id: joi.number().integer().positive().required(),
+}), validate('body', {
   rating: joi.number().integer().positive().required(),
 }), async function (req, res) {
   const {username} = req
-  const {movieId, rating} = req.v.body
+  const {id: movieId} = req.v.params
+  const {rating} = req.v.body
+
+  if (req.v.errbody) {
+    let userRating
+
+    try {
+      userRating = (await db.review.get(`${req.username}-${movie.id}`)).rating
+    } catch (e) {
+      userRating = 0
+    }
+
+    return res.render('movie', {
+      error: 'Rating is required',
+      userRating,
+      movie: await db.movie.get(movieId),
+    })
+  }
 
   await db.review.put(`${username}-${movieId}`, {
     movieId,
@@ -79,7 +104,7 @@ router.post('/movie/rate', validate('body', {
 
   await helper.updateUserSimilarityScores(username)
 
-  res.status(200).json(await db.review.get(`${username}-${movieId}`))
+  res.redirect(`/movie/${movieId}`)
 })
 
 module.exports = router

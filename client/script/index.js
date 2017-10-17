@@ -1,17 +1,13 @@
-const $ = require('jquery')
+global.jQuery = require('jquery')
+require('bootstrap')
+require('bootstrap-star-rating')
 
-const $ratingHolder = $('.rating')
+const $ = global.jQuery
 
-$ratingHolder.on('click', 'span', function (e) {
-  const {movieid: movieId, rating} = $(this).data()
-
-  $.ajax({
-    type: 'POST',
-    url: '/movie/rate',
-    data: {movieId, rating},
-    success: function (data) {
-      console.log('Successfully rated movie', data)
-    },
-  })
+$('#movie-rating').rating({
+  max: 5,
+  min: 1,
+  showClear: false,
+  size: 'lg',
+  step: 1,
 })
-

@@ -1,6 +1,9 @@
 extends layout
 
 block body
-  h1 Movie recommendation demo
-  p= `Total number of users registered: ${totalUsers}`
-  p= `Total number of reviews: ${totalReviews}`
+  .container
+    .row
+      .col-sm-6
+        h1 Movie recommendation demo
+        p= `Total number of users registered: ${totalUsers}`
+        p= `Total number of reviews: ${totalReviews}`

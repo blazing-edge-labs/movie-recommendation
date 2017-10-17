@@ -1,25 +1,31 @@
 extends layout
 
 block body
-  h1= user.username
-  table.review-table
-    thead
-      tr
-        th Movies/Users
-        th= user.username
-        th= loggedUser.username
-    tbody
-      each review, index in user.reviews
-        tr
-          td= movies[review.movieId]
-          td= review.rating
-          td= loggedUser.reviews[index].rating
-      tr
-        td(colspan= 2) Euclidean distance:
-        td= similarity.euclideanDistance.toFixed(2)
-      tr
-        td(colspan= 2) Manhattan distance:
-        td= similarity.manhattanDistance.toFixed(2)
-      tr
-        td(colspan= 2)= 'PCC:'
-        td= similarity.pcc.toFixed(2)
+  .container
+    .row
+      .col-md-8
+        h1= user.username
+        table.table.table-striped
+          thead
+            tr
+              th Movies/Users
+              th= user.username
+              th= loggedUser.username
+          tbody
+            each review, index in user.reviews
+              tr
+                td= movies[review.movieId]
+                td= review.rating
+                td= loggedUser.reviews[index].rating
+            if similarity.euclideanDistance
+              tr
+                td(colspan= 2): b Euclidean distance:
+                td= similarity.euclideanDistance.toFixed(2)
+            if similarity.manhattanDistance
+              tr
+                td(colspan= 2): b Manhattan distance:
+                td= similarity.manhattanDistance.toFixed(2)
+            if similarity.pcc
+              tr
+                td(colspan= 2): b PCC:
+                td= similarity.pcc.toFixed(2)

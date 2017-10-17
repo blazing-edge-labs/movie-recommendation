@@ -1,20 +1,18 @@
 extends layout
 
 block body
-  h1 Movies
+  .container
+    header.row
+      h1 Movies
 
-  each movie in movies
-    article.movie-holder
-      img(src=`${TMDB_IMG_BASE}/w640/${movie.poster_path}`)
-      h4= movie.title
-      p= movie.overview
-      if username
-        .rating
-          span(data-movieid= movie.id data-rating= 5) ☆
-          span(data-movieid= movie.id data-rating= 4) ☆
-          span(data-movieid= movie.id data-rating= 3) ☆
-          span(data-movieid= movie.id data-rating= 2) ☆
-          span(data-movieid= movie.id data-rating= 1) ☆
+    - let n = 0
+    - const totalRows = movies.length / 3
 
-
-
+    while n < totalRows
+      .row
+        each movie in movies.slice(n * 3, (n + 1) * 3)
+          article.movie-holder.col-sm-4
+            a(href=`/movie/${movie.id}`): img(src=`${TMDB_IMG_BASE}/w640/${movie.poster_path}`)
+            h4: a(href=`/movie/${movie.id}`)= movie.title
+            p= movie.overview
+      - n++

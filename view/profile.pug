@@ -1,20 +1,21 @@
 extends layout
 
 block body
-  .row
-    .col-xs-3
-      h1= user.username
-      p= `Number of rated movies: ${user.reviews.length}`
-  .row
-    .col-xs-3
-      h2 Rated movies
-      if user.reviews
-        ol
-          each review in user.reviews
-            li.media
-              .media-left
-                a(href=`/movie/${review.movieId}`)
-                  img(class='media-left-image' src=`${TMDB_IMG_BASE}/w640/${review.movie.poster_path}` alt='')
-              .media-body
-                h4.media-heading: a(href=`/movie/${review.movieId}`)= review.movie.title
-                p= `Rating: ${review.rating}`
+  .container
+    .row
+      .col-xs-8
+        h1= user.username
+        p= `Number of rated movies: ${user.reviews.length}`
+    .row
+      .col-xs-8
+        h2 Rated movies
+        if user.reviews
+          ol
+            each review in user.reviews
+              li.media
+                .media-left
+                  a(href=`/movie/${review.movieId}`)
+                    img(class='media-left-image' src=`${TMDB_IMG_BASE}/w640/${review.movie.poster_path}` alt='')
+                .media-body
+                  h4.media-heading: a(href=`/movie/${review.movieId}`)= review.movie.title
+                  p= `Rating: ${review.rating}`

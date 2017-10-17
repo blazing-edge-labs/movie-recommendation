@@ -14,6 +14,7 @@
     "bluebird": "^3.5.0",
     "body-parser": "^1.18.1",
     "bootstrap": "^3.3.7",
+    "bootstrap-star-rating": "^4.0.2",
     "browserify": "^14.4.0",
     "clean-css-cli": "^4.1.9",
     "dotenv-safe": "^4.0.4",
@@ -80,6 +81,7 @@
     "compileDebug": false
   },
   "scripts": {
+    "copy:glyph": "ncp node_modules/bootstrap/fonts/ dist/font/",
     "lint:check": "eslint .",
     "lint:fix": "eslint --fix .",
     "stylelint:check": "stylelint **/*.css **/*.sss",
@@ -93,6 +95,7 @@
     "db:seed": "node -r babel-register -r ./env seed.js",
     "predev": "run-s -s clean mkdirs",
     "dev": "run-p -s dev:script dev:style dev:server",
+    "dev:copy:glyph": "watch 'run-p -s copy:glyph' node_modules/bootstrap/fonts/ --wait=1 &> /dev/null",
     "dev:script": "watchify -d -t babelify -e client/script/index.js -o dist/main.js",
     "dev:style": "postcss client/style/index.sss -o dist/main.css -m -w",
     "dev:server": "nodemon -q -I -e js,json -i package.json -i client -i dist -- -r babel-register index.js",

@@ -1,12 +1,34 @@
 extends layout
 
 block body
-  h1 Users
+  .container
+    .row
+      h1 Users
 
-  each user in users
-    a(href= `/user/${user.username}`)
-      article.movie-holder
-        h4= user.username
+    each user in users
+      .row
+        article.col-md-6
+          .row
+            a(href= `/user/${user.username}`)
+              h4.col-md-6= user.user.username
+            .col-md-6
+              table.table.table-striped
+                thead
+                  tr: th
+                    th Similarity
+                tbody
+                  tr
+                    td: b Euclidean distance
+                    td= user.euclideanDistance
+                  tr
+                    td: b Manhattan distance
+                    td= user.manhattanDistance
+                  tr
+                    td: b PCC
+                    td= user.pcc
+
+
+
 
 
 
