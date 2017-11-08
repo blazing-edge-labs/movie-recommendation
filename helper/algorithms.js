@@ -54,7 +54,7 @@ function pcc (user1, user2) {
 
   const num = pSum - ((user1MovieScoreSum * user2MovieScoreSum) / n)
   const den = Math.sqrt(
-    (user1MovieScoreSqSum - (Math.pow(user1MovieScoreSum, 2) / n)) *
+  (user1MovieScoreSqSum - (Math.pow(user1MovieScoreSum, 2) / n)) *
     (user2MovieScoreSqSum - (Math.pow(user2MovieScoreSum, 2) / n))
   )
 

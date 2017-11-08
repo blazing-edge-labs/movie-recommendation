@@ -26,8 +26,8 @@ function getUserMutualMovieReviews (user, mainUserMovies) {
 
 function filterUserMutualMovies (user1, user2, mutateObjects = false) {
   let mutualMovies = _.intersection(
-    _.map(user1.reviews, 'movieId'),
-    _.map(user2.reviews, 'movieId')
+  _.map(user1.reviews, 'movieId'),
+  _.map(user2.reviews, 'movieId')
   )
 
   function filterHelper (review) {

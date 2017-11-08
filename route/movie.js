@@ -35,8 +35,8 @@ router.get('/movie', auth, async function (req, res) {
   _.forEach(users, function (user) {
     _.forEach(user.reviews, function (review) {
       movieRecommendations.push({
-       movieId: review.movieId,
-       rating: review.rating * user.pcc
+        movieId: review.movieId,
+        rating: review.rating * user.pcc,
       })
     })
   })
@@ -94,6 +94,7 @@ router.post('/movie/:id', auth, validate('params', {
   const {username} = req
   const {id: movieId} = req.v.params
   const {rating} = req.v.body
+  const movie = await db.movie.get(movieId)
 
   if (req.v.errbody) {
     let userRating
@@ -107,7 +108,7 @@ router.post('/movie/:id', auth, validate('params', {
     return res.render('movie', {
       error: 'Rating is required',
       userRating,
-      movie: await db.movie.get(movieId),
+      movie,
       ...(await getPreviousAndNextMovie(req.v.params.id)),
     })
   }

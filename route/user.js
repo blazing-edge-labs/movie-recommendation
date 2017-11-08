@@ -43,7 +43,7 @@ router.get('/user/:id', auth, validate('params', {
   helper.filterUserMutualMovies(loggedUser, user, true)
 
   const similarity = await db.similarity.get(
-    [loggedUser.username, user.username].sort().join('-')
+  [loggedUser.username, user.username].sort().join('-')
   )
   const mutualMovieData = await Promise.map(_.map(loggedUser.reviews, 'movieId'), function (movieId) {
     return db.movie.get(movieId)

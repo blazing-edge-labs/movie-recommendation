@@ -1,4 +1,3 @@
-const _ = require('lodash')
 const _fp = require('lodash/fp')
 const getStream = require('get-stream')
 const level = require('level')
