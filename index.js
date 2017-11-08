@@ -47,7 +47,6 @@ app.use(require('body-parser').urlencoded({
   limit: '500kb',
 }))
 
-app.use(require('middleware/auth'))
 app.use(require('route/index'))
 app.use(require('route/movie'))
 app.use(require('route/user'))

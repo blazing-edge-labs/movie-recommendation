@@ -2,7 +2,7 @@ function auth (req, res, next) {
   if (req.session.username) {
     req.username = res.locals.username = req.session.username
   } else {
-    throw 'You need to be logged in'
+    return res.redirect('/login')
   }
 
   return next()
