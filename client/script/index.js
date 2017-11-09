@@ -6,8 +6,7 @@ const $ = global.jQuery
 
 $('#movie-rating').rating({
   max: 5,
-  min: 1,
+  min: 0,
   showClear: false,
-  size: 'lg',
   step: 1,
 })

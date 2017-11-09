@@ -121,7 +121,12 @@ router.post('/movie/:id', auth, validate('params', {
 
   await helper.updateUserSimilarityScores(username)
 
-  res.redirect(`/movie/${movieId}`)
+  return res.render('movie', {
+    newRating: true,
+    userRating: rating,
+    movie,
+    ...(await getPreviousAndNextMovie(req.v.params.id)),
+  })
 })
 
 module.exports = router

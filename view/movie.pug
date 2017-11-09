@@ -1,6 +1,7 @@
 extends layout
 
 block body
+  - const newRating = locals.newRating || false
   .container
     .row
       article.col-md-6
@@ -10,12 +11,14 @@ block body
 
         if username
           form(method="POST" action=`/movie/${movie.id}`)
-            .form-group
-              input(name="rating" value= userRating)#movie-rating
+            input(name="rating" value= userRating)#movie-rating
             .form-group
               if error
                 .error= error
               button(type="submit" class="btn btn-primary") Rate
+
+        if newRating
+          p Successfully rated movie!
 
         a(href=`/movie/${prevMovie}` class="btn btn-default") Previous Movie
         a(href=`/movie/${nextMovie}` class="btn btn-default") Next Movie

@@ -91,6 +91,16 @@ function filterUserReviews (username) {
   }
 }
 
+function formatErrors (errors) {
+  const formatedErrors = {}
+
+  _.forEach(errors, function (error) {
+    formatedErrors[error.context.key] = error.message
+  })
+
+  return formatedErrors
+}
+
 module.exports = {
   extractUsernamesFromSimilarityData,
   filterUserReviews,
@@ -98,4 +108,5 @@ module.exports = {
   getUserMovieReviews,
   sortByAlgorithm,
   updateUserSimilarityScores,
+  formatErrors,
 }

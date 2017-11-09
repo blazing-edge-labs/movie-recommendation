@@ -1,18 +1,23 @@
 extends layout
 
 block body
+  - const errors = locals.errors || {}
   section.center-form
     h1 Register
 
     form(action="/register" method="POST")
-      if error
-        .error= error
+      if errors.generic
+        .error= errors.generic
       .form-section
         label(for="username") Username
         input(type="text" class="form-control" name="username" id="username")
+        if errors.username
+          .error= errors.username
       .form-section
         label(for="password") Password
         input(type="password" class="form-control" name="password" id="password")
+        if errors.password
+          .error= errors.password
       .submit-section
         button(type="submit" class="btn btn-primary") Register
         a(href="/login") Login
