@@ -1,6 +1,7 @@
 *.sublime-*
 .DS_Store
 .env
+.git
 .idea
 asset.json
 db

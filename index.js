@@ -33,13 +33,6 @@ app.use(session({
 if (process.env.NODE_ENV === 'development') {
   app.use(require('lr')(['client/image', 'view', 'dist']))
 }
-app.use(require('slicica')({
-  prefix: 'image',
-  root: 'client/image',
-  maxAge: '30 days',
-  contentTypes: ['image/jpeg'],
-  compression: process.env.NODE_ENV === 'production' ? 9 : 0,
-}))
 app.use('/image', express.static('client/image', {maxAge: '30 days'}))
 app.use(express.static('dist', {maxAge: '30 days'}))
 app.use(require('body-parser').urlencoded({
